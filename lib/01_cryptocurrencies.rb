@@ -6,16 +6,60 @@ price = ["6558.07", "468.95", "0.487526", "762.84", "8.86", "85.26", "0.151268",
 
 price = price.map(&:to_f)
 
-object = Hash[*name.zip(price).flatten]
-# name.zip(price).to_h
+object = name.zip(price).to_h
 
+def mostexpensive(object)
+    puts "La ou les crypto qui ont la plus grosse valeur sont :"
+    puts ""
+    puts red(object.max_by{ |k,v| v })
+end
 
-puts "La ou les crypto qui ont la plus grosse valeur sont #{object.max_by{ |k,v| v }}"
+def lessexpensive(object, price)
+    puts "La ou les crypto qui ont la plus petite valeur sont :"
+    puts ""
+    puts red(object.select { |k,v| v == price.min })
+end
 
-puts "La ou les crypto qui ont la plus petite valeur sont #{object.select { |k,v| v == price.min }}"
+def underthan(object)
+    puts "Les devises dont le cours est inférieur à 6000 sont :" 
+    puts ""
+    puts red(object.select { |k,v| v < 6000 })
+end
 
-puts "Les devises dont le cours est inférieur à 6000 sont #{object.select { |k,v| v < 6000 }}"
+def mostexpensiveunderthan(object)
+    puts "La devise la plus chère parmi celles dont le cours est inférieur à 6000 est :"
+    puts ""
+    puts red(object.select { |k,v| v < 6000 }.max_by { |k,v| v })
+end
 
-puts "La devise la plus chère parmi celles dont le cours est inférieur à 6000 est #{object.select { |k,v| v < 6000 }.max_by{ |k,v| v }}"
+def red(mytext)
+    "\e[31m#{mytext}\e[0m"
+end
 
+user_input = ""
+while user_input != 5
+    puts""
+    puts "1.  Combien y a-t-il de handle dans cette array ?"
+    puts "2.  Quel est le handle le plus court de cette liste ?"
+    puts "3.  Combien y-a-t'il de handle contenant 5 caractères (le @ ne compte pas pour un caractère)"
+    puts "4.  Combien commencent par une majuscule (première lettre juste après le @) ?"
+    puts ""
+    puts "5.  Fermer l'application"
+    puts ""
+    puts "Entrez votre selection"
+    print "> "
+    user_input = gets.chomp.to_i
 
+    if user_input == 1
+        mostexpensive(object)
+    elsif user_input == 2
+        lessexpensive(object, price)
+    elsif user_input == 3
+        underthan(object)
+    elsif user_input == 4
+        mostexpensiveunderthan(object)
+    elsif user_input == 9
+        puts "Fermeture de l'application"
+    else "Vous devez taper un numéro entre 1 et 9"
+    end
+end
