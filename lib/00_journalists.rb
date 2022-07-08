@@ -15,6 +15,8 @@ end
 
 def upperfirstchar(arr)
 puts "Il y a #{arr.count { |str| str.match?(/\@[A-Z]/)}} handle qui commencent par une majuscule"
+puts "Il y a #{arr.count { |str| str.match?(/\@[a-z]/)}} handle qui commencent par une minuscule"
+puts "Il y a #{arr.count { |str| str.match?(/\@[_]/)}} handle qui commencent par un underscore"
 end
 
 def sortatoz(arr)
